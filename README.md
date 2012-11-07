@@ -12,8 +12,7 @@ An hello-world webserver in C using [libuv][libuv] and
 Build it
 
     git submodule update --init
-    cd libuv/; git pull origin master; cd ..;
-    cd http-parser/; git pull origin master; cd ..;
+    git submodule foreach 'git pull origin master'
     make
 
 Run it
