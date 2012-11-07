@@ -1,18 +1,10 @@
-UNAME := $(shell uname)
-
-RTFLAGS="-lrt"
-ifeq ($(UNAME), Darwin)
-RTFLAGS=-framework Carbon -framework CoreServices
-endif
-
-
-webserver: webserver.c libuv/uv.a http-parser/http_parser.o
+webserver: webserver.c libuv/libuv.a http-parser/http_parser.o
 	$(CC) -I libuv/include \
-	$(RTFLAGS) -lm -lpthread -o \
+	-lrt -lm -lpthread -o \
 	webserver webserver.c \
-	libuv/uv.a http-parser/http_parser.o
+	libuv/libuv.a http-parser/http_parser.o
 
-libuv/uv.a:
+libuv/libuv.a:
 	$(MAKE) -C libuv
 
 http-parser/http_parser.o:
@@ -21,6 +13,6 @@ http-parser/http_parser.o:
 clean:
 	$(MAKE) -C libuv clean
 	$(MAKE) -C http-parser clean
-	-rm libuv/uv.a
+	-rm libuv/libuv.a
 	-rm http-parser/http_parser.o
 	-rm webserver

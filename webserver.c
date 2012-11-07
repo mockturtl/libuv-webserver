@@ -4,13 +4,13 @@
 #include "libuv/include/uv.h"
 #include "http-parser/http_parser.h"
 
+#define UVERR(err, msg) fprintf(stderr, "%s: %s\n", msg, uv_strerror(err))
 #define CHECK(r, msg) \
   if (r) { \
     uv_err_t err = uv_last_error(uv_loop); \
-    fprintf(stderr, "%s: %s\n", msg, uv_strerror(err)); \
+    UVERR(err, msg); \
     exit(1); \
   }
-#define UVERR(err, msg) fprintf(stderr, "%s: %s\n", msg, uv_strerror(err))
 #define LOG(msg) puts(msg);
 #define LOGF(fmt, params...) printf(fmt "\n", params);
 #define LOG_ERROR(msg) puts(msg);
